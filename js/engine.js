@@ -28,7 +28,19 @@ var Engine = (function(global) {
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
-
+    /* This function handles querying the user for a difficulty setting and 
+    validating the input
+    */
+    function selectDifficulty() {
+        var selected = false;
+        while (!selected) {
+            difficulty = prompt("Please select your difficulty (E - Easy, M - Medium, H - Hard)");
+            difficulty = difficulty.toUpperCase();
+            if (difficulty == 'E' || difficulty == 'M' || difficulty == 'H') { 
+                selected = true;
+            } else { alert("Invalid selection.  Please enter 'E', 'M', or 'H'") }
+        }
+    }
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -41,6 +53,19 @@ var Engine = (function(global) {
          */
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
+           //The switch below incorporates the difficulty setting into the speed of enemy motion
+        switch(difficulty) {
+            case 'E':
+                dt /= 2.5;
+                break;
+            case 'M':
+                break;
+            case 'H':
+                dt *= 2.5;
+                break;
+            default:
+                break;
+        }
 
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
@@ -59,6 +84,9 @@ var Engine = (function(global) {
         win.requestAnimationFrame(main);
     };
 
+    
+
+
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
@@ -66,7 +94,9 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
+        selectDifficulty();
         main();
+        
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -78,24 +108,7 @@ var Engine = (function(global) {
      * functionality this way (you could just implement collision detection
      * on the entities themselves within your app.js file).
      */
-    function update(dt) {
-        updateEntities(dt);
-        checkCollisions();
-    }
 
-    /* This is called by the update function  and loops through all of the
-     * objects within your allEnemies array as defined in app.js and calls
-     * their update() methods. It will then call the update function for your
-     * player object. These update methods should focus purely on updating
-     * the data/properties related to  the object. Do your drawing in your
-     * render methods.
-     */
-    function updateEntities(dt) {
-        allEnemies.forEach(function(enemy) {
-            enemy.update(dt);
-        });
-        player.update();
-    }
     //helper function to check to see if the index of one image1 is within 
     //the area image2.  This simplifies the logic of checkCollisions() . . .
  
@@ -114,17 +127,34 @@ var Engine = (function(global) {
         arrayLength = allEnemies.length;
         for (var i = 0; i < arrayLength; i++) {
             if (overlaps(player, allEnemies[i]) || overlaps(allEnemies[i], player)) {
+                alert("Game Over . . . ");
                 player.respawn();
-                /*
-                player.x = 202;
-                player.y = 415;
-                */
+                
             }
          
         } 
 
         
     }
+    function update(dt) {
+        updateEntities(dt);
+        checkCollisions();
+    }
+
+    /* This is called by the update function  and loops through all of the
+     * objects within your allEnemies array as defined in app.js and calls
+     * their update() methods. It will then call the update function for your
+     * player object. These update methods should focus purely on updating
+     * the data/properties related to  the object. Do your drawing in your
+     * render methods.
+     */
+    function updateEntities(dt) {
+        allEnemies.forEach(function(enemy) {
+            enemy.update(dt);
+        });
+        player.update();
+    }
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -201,7 +231,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 

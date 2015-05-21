@@ -1,15 +1,22 @@
 // Enemies our player must avoid
-var Enemy = function(x, y, direction, speed) {
+var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+    
     this.sprite = 'images/enemy-bug.png';
-    this.x = x;
-    this.y = y;
-    this.direction = direction;
-    this.speed = speed;
+    this.x = Math.floor(Math.random() * 505);  //initializes x-position randomly between 0 and 505
+    this.y = Math.floor(Math.random() * 165) + 65;  // initializes y-position randomly between 65 and 230
+    //this.direction = direction;
+    dIndex = Math.floor(Math.random() * 2);  //  gives an index used for randomizing direction in the next few lines
+    if (dIndex < 1) {
+        this.direction = 'left';
+    } else {
+        this.direction = 'right';
+    }
+    this.speed = Math.floor(Math.random() * 125) + 45; // randomizes speed between 45 and 170
     this.width = 90;
     this.height = 85;
 
@@ -40,11 +47,15 @@ Enemy.prototype.render = function() {
 
 var Player = function () {
     //  Declares character image and position
-    this.sprite = 'images/char-boy.png';
+    //  The following lines randomize the player sprite
+    this.imagePath = 'images/char-';
+    images = [ 'boy.png', 'cat-girl.png', 'horn-girl.png', 'pink-girl.png', 'princess-girl.png'];
+    characterIndex = Math.floor(Math.random() * 5);
+    this.sprite = this.imagePath + images[characterIndex];
     this.x = 202;
     this.y = 415;
-    this.dy = 25;
-    this.dx = 25;
+    this.dy = 35;  //increments in the y direction
+    this.dx = 35;  //increments in the x direction
     this.width = 110;
     this.height = 110;
 
@@ -58,14 +69,12 @@ Player.prototype.update = function() {
     if ( this.y >= 435 ) { this.y = 435 }
     //resets position if you make it to the river
     if ( this.y <= 10 ) {
-        this.respawn();
-        /*
-        this.x = 202;
-        this.y = 415;
-        */
+        alert("You win!");
+        this.respawn(); 
     }
 }
 
+//  Helper function, resets the player's location
 Player.prototype.respawn = function() {
     this.x = 202;
     this.y = 415;
@@ -94,12 +103,13 @@ Player.prototype.handleInput = function(keys) {
 //Instantiates player
 var player = new Player();
 //Instantiates enemies with initial position, direction, and speed
-var enemy1 = new Enemy(0, 65, 'right', 45);
-var enemy2 = new Enemy(0, 150, 'right', 65);
-var enemy3 = new Enemy(505, 230, 'left', 55);
+var enemy1 = new Enemy();
+var enemy2 = new Enemy();
+var enemy3 = new Enemy();
+var enemy4 = new Enemy();
 //Stores enemies in the allEnemies array for engine.js to access
 
-var allEnemies = [enemy1, enemy2, enemy3];
+var allEnemies = [enemy1, enemy2, enemy3, enemy4];
 
 
 
@@ -117,4 +127,3 @@ document.addEventListener('keyup', function(e) {
 });
 
 
-//collision detection?
