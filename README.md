@@ -16,7 +16,7 @@ access the variable later)
 
 QUESTION:  What other information is my README file missing?  I was only asked to include instructions for running the game.  
 
-In order to run the game, simply open 'index.html' with the web browder of your choice.
+In order to run the game, simply open 'index.html' with the web browser of your choice.
 
 Selecting Difficulty:  
 
