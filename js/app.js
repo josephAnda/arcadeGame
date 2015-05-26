@@ -96,20 +96,8 @@ Player.prototype.update = function() {
 
 //  Returns boolean to see if sprites overlap
 Player.prototype.overlaps = function(image1, image2) {
-        /*
-        if ((image1.x >= image2.x && 
-            image1.x <= image2.x + image2.width) &&
-            (image1.y >= image2.y &&
-            image1.y <= image2.y + image2.height)) { 
-            return true; 
-        } else {
-            return false; 
-        }
-        */
-        //  The new version of the boolean logic commented 
-        //  out above is below and was recommended as best practices.
         return (image1.x >= image2.x && image1.x <= image2.x + image2.width) &&
-            (image1.y >= image2.y && image1.y <= image2.y + image2.height) ? true : false
+        (image1.y >= image2.y && image1.y <= image2.y + image2.height) ? true : false
     }
 //  Checks collisions
 Player.prototype.checkCollisions = function() {
