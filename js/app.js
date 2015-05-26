@@ -10,11 +10,13 @@ var Enemy = function() {
     this.x = Math.floor(Math.random() * 505);  //initializes x-position randomly between 0 and 505
     this.y = Math.floor(Math.random() * 165) + 65;  // initializes y-position randomly between 65 and 230
     dIndex = Math.floor(Math.random() * 2);  //  gives an index used for randomizing direction in the next few lines
+    
     if (dIndex < 1) {
         this.direction = 'left';
     } else {
         this.direction = 'right';
     }
+    
     this.speed = Math.floor(Math.random() * 125) + 45; // randomizes speed between 45 and 170
     this.width = 70;
     this.height = 50;
@@ -25,11 +27,19 @@ var Enemy = function() {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // Moves enemies left and right
-    if (this.direction == 'right') { this.x += this.speed * dt }  
-    if (this.direction == 'left') { this.x -= this.speed * dt }  
+    if (this.direction == 'right') { 
+        this.x += this.speed * dt; 
+    }  
+    if (this.direction == 'left') { 
+        this.x -= this.speed * dt; 
+    }  
     //respawns enemies
-    if (this.x >= 505 && this.direction == 'right') { this.x = 0 }  
-    if (this.x <= 0 && this.direction == 'left') { this.x = 505 }
+    if (this.x >= 505 && this.direction == 'right') { 
+        this.x = 0; 
+    }  
+    if (this.x <= 0 && this.direction == 'left') { 
+        this.x = 505; 
+    }
 }
 
 // Draw the enemy on the screen, required method for game
@@ -64,10 +74,18 @@ Player.prototype.respawn = function() {
 
 Player.prototype.update = function() {
     //sets boundaries on the game screen 
-    if ( this.x <= 0 ) { this.x = 0 } 
-    if ( this.x >=410 ) { this.x = 410 }
-    if ( this.y <= 0 ) { this.y = 0 }
-    if ( this.y >= 435 ) { this.y = 435 }
+    if ( this.x <= 0 ) { 
+        this.x = 0; 
+    } 
+    if ( this.x >=410 ) { 
+        this.x = 410; 
+    }
+    if ( this.y <= 0 ) { 
+        this.y = 0; 
+    }
+    if ( this.y >= 435 ) { 
+        this.y = 435; 
+    }
     this.checkCollisions();
     //resets position if you make it to the river
     if ( this.y <= 10 ) {
@@ -78,15 +96,20 @@ Player.prototype.update = function() {
 
 //  Returns boolean to see if sprites overlap
 Player.prototype.overlaps = function(image1, image2) {
+        /*
         if ((image1.x >= image2.x && 
             image1.x <= image2.x + image2.width) &&
             (image1.y >= image2.y &&
             image1.y <= image2.y + image2.height)) { 
-            return true 
+            return true; 
         } else {
-            return false 
+            return false; 
         }
-        
+        */
+        //  The new version of the boolean logic commented out above is below and
+        //  was recommended as best practices.
+        return (image1.x >= image2.x && image1.x <= image2.x + image2.width) &&
+            (image1.y >= image2.y && image1.y <= image2.y + image2.height) ? true : false
     }
 //  Checks collisions
 Player.prototype.checkCollisions = function() {
