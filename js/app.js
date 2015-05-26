@@ -16,8 +16,8 @@ var Enemy = function() {
         this.direction = 'right';
     }
     this.speed = Math.floor(Math.random() * 125) + 45; // randomizes speed between 45 and 170
-    this.width = 90;
-    this.height = 85;
+    this.width = 70;
+    this.height = 50;
 
 }
 
@@ -48,11 +48,11 @@ var Player = function () {
     this.x = 202;
     this.y = 415;
     //  Sets movement sensitivity
-    this.dy = 35;  
-    this.dx = 35;  
+    this.dy = 25;  
+    this.dx = 25;  
     //  Sets sprite dimensions
-    this.width = 110;
-    this.height = 110;
+    this.width = 85;
+    this.height = 85;
 
 }
 
@@ -68,6 +68,7 @@ Player.prototype.update = function() {
     if ( this.x >=410 ) { this.x = 410 }
     if ( this.y <= 0 ) { this.y = 0 }
     if ( this.y >= 435 ) { this.y = 435 }
+    this.checkCollisions();
     //resets position if you make it to the river
     if ( this.y <= 10 ) {
         alert("You win!");
@@ -75,6 +76,32 @@ Player.prototype.update = function() {
     }
 }
 
+//  Returns boolean to see if sprites overlap
+Player.prototype.overlaps = function(image1, image2) {
+        if ((image1.x >= image2.x && 
+            image1.x <= image2.x + image2.width) &&
+            (image1.y >= image2.y &&
+            image1.y <= image2.y + image2.height)) { 
+            return true 
+        } else {
+            return false 
+        }
+        
+    }
+//  Checks collisions
+Player.prototype.checkCollisions = function() {
+        arrayLength = allEnemies.length;
+        for (var i = 0; i < arrayLength; i++) {
+            if (this.overlaps(player, allEnemies[i]) || this.overlaps(allEnemies[i], player)) {
+                alert("Game Over . . . ");
+                player.respawn();
+                
+            }
+         
+        } 
+
+        
+    }
 //  Draws player
 
 Player.prototype.render = function() { 

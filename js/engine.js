@@ -109,36 +109,10 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
 
-    //helper function to check to see if the index of one image1 is within 
-    //the area image2.  This simplifies the logic of checkCollisions() . . .
- 
-    function overlaps(image1, image2) {
-        if ((image1.x >= image2.x && 
-            image1.x <= image2.x + image2.width) &&
-            (image1.y >= image2.y &&
-            image1.y <= image2.y + image2.height)) { 
-            return true 
-        } else {
-            return false 
-        }
-        
-    }
-    function checkCollisions() {
-        arrayLength = allEnemies.length;
-        for (var i = 0; i < arrayLength; i++) {
-            if (overlaps(player, allEnemies[i]) || overlaps(allEnemies[i], player)) {
-                alert("Game Over . . . ");
-                player.respawn();
-                
-            }
-         
-        } 
 
-        
-    }
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
+    
     }
 
     /* This is called by the update function  and loops through all of the
