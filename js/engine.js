@@ -31,6 +31,11 @@ var Engine = (function(global) {
     /* This function handles querying the user for a difficulty setting and 
     validating the input
     */
+    //  Formal declaration of the difficulty variable so it is defined before
+    //  selectDifficulty() needs to access it
+    var difficulty = "";
+
+
     function selectDifficulty() {
         var selected = false;
         while (!selected) {

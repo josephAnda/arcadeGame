@@ -106,8 +106,8 @@ Player.prototype.overlaps = function(image1, image2) {
             return false; 
         }
         */
-        //  The new version of the boolean logic commented out above is below and
-        //  was recommended as best practices.
+        //  The new version of the boolean logic commented 
+        //  out above is below and was recommended as best practices.
         return (image1.x >= image2.x && image1.x <= image2.x + image2.width) &&
             (image1.y >= image2.y && image1.y <= image2.y + image2.height) ? true : false
     }
