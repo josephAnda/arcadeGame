@@ -14,7 +14,7 @@ access the variable later)
 
 *the collision logic has been updated to reduce the occurence of 'far-away' collisions.  
 
-QUESTION:  What other information is my README file missing?  I was only asked to include instructions for running the game.  
+  
 
 In order to run the game, simply open 'index.html' with the web browser of your choice.
 

@@ -110,8 +110,7 @@ Player.prototype.checkCollisions = function() {
             }
          
         } 
-
-        
+ 
     }
 //  Draws player
 
@@ -133,7 +132,6 @@ Player.prototype.handleInput = function(keys) {
         this.x += this.dx;
     }
 };
-
 
 //  Instantiates player and enemies
 

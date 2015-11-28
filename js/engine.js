@@ -28,14 +28,10 @@ var Engine = (function(global) {
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
-    /* This function handles querying the user for a difficulty setting and 
-    validating the input
-    */
-    //  Formal declaration of the difficulty variable so it is defined before
-    //  selectDifficulty() needs to access it
+    //  Formal declaration of the difficulty variable 
     var difficulty = "";
 
-
+    //  Asks user for desired difficulty setting, validates input
     function selectDifficulty() {
         var selected = false;
         while (!selected) {
@@ -43,7 +39,9 @@ var Engine = (function(global) {
             difficulty = difficulty.toUpperCase();
             if (difficulty == 'E' || difficulty == 'M' || difficulty == 'H') { 
                 selected = true;
-            } else { alert("Invalid selection.  Please enter 'E', 'M', or 'H'") }
+            } else { 
+                alert("Invalid selection.  Please enter 'E', 'M', or 'H'"); 
+            }
         }
     }
     /* This function serves as the kickoff point for the game loop itself
